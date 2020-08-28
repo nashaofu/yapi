@@ -1,0 +1,25 @@
+version: '3'
+services:
+  yapi-web:
+    container_name: yapi-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: yapi
+    depends_on:
+      - yapi-db
+    ports:
+      - '3000:3000'
+    volumes:
+      - yapi-web-volume:/var/data/yapi
+
+  yapi-db:
+    container_name: yapi-db
+    image: mongo
+    restart: always
+    volumes:
+      - yapi-db-volume:/data/db
+
+volumes:
+  yapi-web-volume:
+  yapi-db-volume:
