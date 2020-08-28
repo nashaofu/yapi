@@ -134,7 +134,7 @@ function setupSql() {
         project_id: 1
       });
 
-      result.then(
+      return result.then(
         function() {
           fs.ensureFileSync(yapi.path.join(yapi.WEBROOT_RUNTIME, 'init.lock'));
           console.log(
@@ -149,6 +149,9 @@ function setupSql() {
     })
     .catch(function(err) {
       throw new Error(err.message);
+    }).finally(() => {
+      // 不管成功失败exit code都为0
+      process.exit(0);
     });
 }
 
